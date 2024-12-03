@@ -8,6 +8,13 @@ public class CommandLineRunner {
                   wharf init [path]     Initialize Docker configuration
                   """;
 		}
+
+		String command = args[0];
+
+		if ("init".equals(command)) {
+			return "Initializing Docker configuration";
+		}
+
 		return "";
 	}
 }
