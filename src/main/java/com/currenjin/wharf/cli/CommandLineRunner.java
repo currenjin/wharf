@@ -42,7 +42,7 @@ public class CommandLineRunner {
 			return initializeDocker(Path.of(targetPath));
 		}
 
-		return "";
+		return CommandLineMessage.INVALID_COMMAND_LINE + command;
 	}
 
 	private String initializeDocker(Path projectPath) {
@@ -52,9 +52,9 @@ public class CommandLineRunner {
 			var dockerfile = dockerfileGenerator.generate(project);
 			configWriter.write(projectPath, compose, dockerfile);
 
-			return "Docker configuration generated successfully";
+			return CommandLineMessage.SUCCEEDED_GENERATE_TO_DOCKER_CONFIGURATION;
 		} catch (Exception e) {
-			return "Failed to generate Docker configuration: " + e.getMessage();
+			return CommandLineMessage.FAILED_GENERATE_DOCKER_CONFIGURATION + e.getMessage();
 		}
 	}
 }

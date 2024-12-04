@@ -29,9 +29,29 @@ public class CommandLineRunnerTest {
 
 		String output = runner.run(args);
 
-		assertThat(output).contains("Docker configuration generated successfully");
+		assertThat(output).contains(CommandLineMessage.SUCCEEDED_GENERATE_TO_DOCKER_CONFIGURATION);
 		assertThat(tempDir.resolve("docker-compose.yml")).exists();
 		assertThat(tempDir.resolve("Dockerfile")).exists();
+	}
+
+	@Test
+	void failedInitCommandGeneratesDockerConfigs(@TempDir Path tempDir) {
+		CommandLineRunner runner = new CommandLineRunner();
+		String[] args = {"init", tempDir.toString()};
+
+		String output = runner.run(args);
+
+		assertThat(output).contains(CommandLineMessage.FAILED_GENERATE_DOCKER_CONFIGURATION);
+	}
+
+	@Test
+	void invalidCommandGeneratesDockerConfigs(@TempDir Path tempDir) {
+		CommandLineRunner runner = new CommandLineRunner();
+		String[] args = {"invalid", tempDir.toString()};
+
+		String output = runner.run(args);
+
+		assertThat(output).contains(CommandLineMessage.INVALID_COMMAND_LINE);
 	}
 
 	private void createSpringBootProject(Path directory) throws Exception {
