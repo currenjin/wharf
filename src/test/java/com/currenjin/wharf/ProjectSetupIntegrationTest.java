@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.currenjin.wharf.analyzer.DefaultProjectAnalyzer;
-import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
 import com.currenjin.wharf.detector.NodeFrameworkDetector;
+import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
 import com.currenjin.wharf.docker.DockerComposeGenerator;
 import com.currenjin.wharf.docker.DockerConfigWriter;
 import com.currenjin.wharf.docker.DockerfileGenerator;

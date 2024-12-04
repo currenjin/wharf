@@ -13,8 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.currenjin.wharf.detector.FrameworkDetector;
-import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
 import com.currenjin.wharf.detector.NodeFrameworkDetector;
+import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
 import com.currenjin.wharf.domain.Framework;
 import com.currenjin.wharf.domain.Project;
 

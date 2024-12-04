@@ -1,13 +1,11 @@
 package com.currenjin.wharf;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.currenjin.wharf.cli.CommandLineRunner;
 
-@SpringBootApplication
 public class WharfApplication {
-
 	public static void main(String[] args) {
-		SpringApplication.run(WharfApplication.class, args);
+		CommandLineRunner runner = new CommandLineRunner();
+		String result = runner.run(args);
+		System.out.println(result);
 	}
-
 }
