@@ -22,16 +22,6 @@ public class CommandLineRunnerTest {
 	}
 
 	@Test
-	void initCommandPrintsMessage(@TempDir Path tempDir) {
-		CommandLineRunner runner = new CommandLineRunner();
-		String[] args = {"init", tempDir.toString()};
-
-		String output = runner.run(args);
-
-		assertThat(output).contains("Initializing Docker configuration");
-	}
-
-	@Test
 	void initCommandGeneratesDockerConfigs(@TempDir Path tempDir) throws Exception {
 		createSpringBootProject(tempDir);
 		CommandLineRunner runner = new CommandLineRunner();

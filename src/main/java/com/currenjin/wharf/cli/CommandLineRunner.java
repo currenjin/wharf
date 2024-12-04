@@ -4,14 +4,13 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.currenjin.wharf.analyzer.DefaultProjectAnalyzer;
-import com.currenjin.wharf.detector.GradleFrameworkDetector;
+import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
 import com.currenjin.wharf.detector.NodeFrameworkDetector;
 import com.currenjin.wharf.docker.DockerComposeGenerator;
 import com.currenjin.wharf.docker.DockerConfigWriter;
 import com.currenjin.wharf.docker.DockerfileGenerator;
 
 public class CommandLineRunner {
-
 	private final DefaultProjectAnalyzer analyzer;
 	private final DockerComposeGenerator composeGenerator;
 	private final DockerfileGenerator dockerfileGenerator;
@@ -19,7 +18,9 @@ public class CommandLineRunner {
 
 	public CommandLineRunner() {
 		this.analyzer = new DefaultProjectAnalyzer(
-			List.of(new GradleFrameworkDetector(), new NodeFrameworkDetector())
+			List.of(
+				new SpringBootFrameworkDetector(),
+				new NodeFrameworkDetector())
 		);
 		this.composeGenerator = new DockerComposeGenerator();
 		this.dockerfileGenerator = new DockerfileGenerator();

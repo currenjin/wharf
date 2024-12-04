@@ -6,7 +6,7 @@ import java.nio.file.Path;
 
 import com.currenjin.wharf.domain.Framework;
 
-public class GradleFrameworkDetector implements FrameworkDetector {
+public class SpringBootFrameworkDetector implements FrameworkDetector {
 	@Override
 	public Framework detect(Path path) {
 		Path buildGradlePath = path.resolve("build.gradle");

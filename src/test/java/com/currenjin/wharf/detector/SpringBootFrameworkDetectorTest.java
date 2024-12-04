@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import com.currenjin.wharf.domain.Framework;
 
-public class GradleFrameworkDetectorTest {
-	private final FrameworkDetector detector = new GradleFrameworkDetector();
+public class SpringBootFrameworkDetectorTest {
+	private final FrameworkDetector detector = new SpringBootFrameworkDetector();
 
 	@Test
 	void detectSpringBoot() {

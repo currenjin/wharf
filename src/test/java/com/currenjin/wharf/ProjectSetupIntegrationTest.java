@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.currenjin.wharf.analyzer.DefaultProjectAnalyzer;
-import com.currenjin.wharf.detector.GradleFrameworkDetector;
+import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
 import com.currenjin.wharf.detector.NodeFrameworkDetector;
 import com.currenjin.wharf.docker.DockerComposeGenerator;
 import com.currenjin.wharf.docker.DockerConfigWriter;
@@ -25,7 +25,7 @@ public class ProjectSetupIntegrationTest {
 		createSpringBootProject(tempDir);
 
 		DefaultProjectAnalyzer analyzer = new DefaultProjectAnalyzer(
-			List.of(new GradleFrameworkDetector(), new NodeFrameworkDetector())
+			List.of(new SpringBootFrameworkDetector(), new NodeFrameworkDetector())
 		);
 		DockerComposeGenerator composeGenerator = new DockerComposeGenerator();
 		DockerfileGenerator dockerfileGenerator = new DockerfileGenerator();
