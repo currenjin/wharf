@@ -22,7 +22,7 @@ class PostgreSQLServiceDetectorTest {
 		List<Service> services = detector.detect(tempDir);
 
 		assertThat(services).hasSize(1);
-		assertThat(services.get(0))
+		assertThat(services.getFirst())
 			.satisfies(postgresql -> {
 				assertThat(postgresql.getName()).isEqualTo("postgresql");
 				assertThat(postgresql.getVersion()).isEqualTo("15.0");
