@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,37 @@ class MySQLServiceDetectorTest {
 	@Test
 	void returnEmptyListWhenNoMySQLDependency(@TempDir Path tempDir) throws Exception {
 		createGradleWithoutMySQLDependency(tempDir);
+		ServiceDetector detector = new MySQLServiceDetector();
+
+		List<Service> services = detector.detect(tempDir);
+
+		assertThat(services).isEmpty();
+	}
+
+	@Test
+	void returnEmptyListWhenNoBuildGradle(@TempDir Path tempDir) {
+		ServiceDetector detector = new MySQLServiceDetector();
+
+		List<Service> services = detector.detect(tempDir);
+
+		assertThat(services).isEmpty();
+	}
+
+	@Test
+	void returnEmptyListWhenBuildGradleIsEmpty(@TempDir Path tempDir) throws Exception {
+		Files.writeString(tempDir.resolve("build.gradle"), "");
+		ServiceDetector detector = new MySQLServiceDetector();
+
+		List<Service> services = detector.detect(tempDir);
+
+		assertThat(services).isEmpty();
+	}
+
+	@Test
+	void returnEmptyListWhenIOException(@TempDir Path tempDir) throws Exception {
+		Path buildGradlePath = tempDir.resolve("build.gradle");
+		Files.writeString(buildGradlePath, "content");
+		Files.setPosixFilePermissions(buildGradlePath, Collections.emptySet());
 		ServiceDetector detector = new MySQLServiceDetector();
 
 		List<Service> services = detector.detect(tempDir);
