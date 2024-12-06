@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.3.0'
+          java-version: '21'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Native Image
+        run: ./gradlew nativeCompile
+
+      - name: Rename binary
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            mv build/native/nativeCompile/wharf wharf-linux
+          else
+            mv build/native/nativeCompile/wharf wharf-darwin
+          fi
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: wharf-${{ matrix.os }}
+          path: wharf-*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            */wharf-linux
+            */wharf-darwin
