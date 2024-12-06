@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.graalvm.buildtools.native' version '0.9.28'
 }
 
 group = 'com.currenjin'
@@ -38,4 +39,13 @@ jar {
     }
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+graalvmNative {
+    binaries {
+        main {
+            imageName = 'wharf'
+            mainClass = 'com.currenjin.wharf.WharfApplication'
+        }
+    }
 }
