@@ -21,7 +21,18 @@ Wharf automatically analyzes your project and generates Docker configuration fil
 - Works out of the box
 
 ## Quick Start
-### Download the latest release:
+### Using Homebrew (Recommended)
+```bash
+# Install wharf
+brew tap currenjin/wharf
+brew install wharf
+
+# Move to your project directory and initialize
+cd /path/to/your/project
+wharf init
+```
+
+### Manual Installation
 ```bash
 # Clone the project
 git clone https://github.com/currenjin/wharf.git
@@ -29,10 +40,7 @@ git clone https://github.com/currenjin/wharf.git
 # Build
 cd wharf
 ./gradlew clean build
-```
 
-### Initialize Docker configuration in your project:
-```bash
 # Move to your project directory
 cd /path/to/your/project
 
