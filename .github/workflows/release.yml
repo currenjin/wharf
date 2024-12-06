@@ -21,7 +21,7 @@ jobs:
           version: '22.3.0'
           java-version: '21'
           components: 'native-image'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.WHARF_TOKEN }}
 
       - name: Build Native Image
         run: ./gradlew nativeCompile
