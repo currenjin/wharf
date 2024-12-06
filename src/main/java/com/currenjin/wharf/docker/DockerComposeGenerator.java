@@ -3,6 +3,12 @@ package com.currenjin.wharf.docker;
 import com.currenjin.wharf.domain.Project;
 
 public class DockerComposeGenerator {
+	private final DockerServiceGenerator serviceGenerator;
+
+	public DockerComposeGenerator() {
+		this.serviceGenerator = new DockerServiceGenerator();
+	}
+
 	public DockerCompose generate(Project project) {
 		DockerCompose compose = new DockerCompose();
 
@@ -10,6 +16,12 @@ public class DockerComposeGenerator {
 			case SPRING_BOOT -> addSpringBootService(compose);
 			case NODE_JS -> addNodeJsService(compose);
 		}
+
+		project.getRequiredServices().forEach(service -> {
+			DockerService dockerService = serviceGenerator.generate(service);
+			compose.addService(service.getName(), dockerService);
+		});
+
 
 		return compose;
 	}
