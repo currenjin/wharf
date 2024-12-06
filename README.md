@@ -23,8 +23,8 @@ Wharf automatically analyzes your project and generates Docker configuration fil
 ## Quick Start
 ### Install with Script (Recommended)
 ```bash
-# Install wharf
-curl -fsSL https://raw.githubusercontent.com/currenjin/wharf/main/install.sh | sh
+# Install wharf (will ask for sudo password)
+curl -fsSL https://raw.githubusercontent.com/currenjin/wharf/main/install.sh | sudo sh
 
 # Move to your project directory and initialize
 cd /path/to/your/project
