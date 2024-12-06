@@ -21,11 +21,10 @@ Wharf automatically analyzes your project and generates Docker configuration fil
 - Works out of the box
 
 ## Quick Start
-### Using Homebrew (Recommended)
+### Install with Script (Recommended)
 ```bash
 # Install wharf
-brew tap currenjin/wharf
-brew install wharf
+curl -fsSL https://raw.githubusercontent.com/currenjin/wharf/main/install.sh | sh
 
 # Move to your project directory and initialize
 cd /path/to/your/project
