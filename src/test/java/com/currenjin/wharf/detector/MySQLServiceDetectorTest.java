@@ -22,7 +22,7 @@ class MySQLServiceDetectorTest {
 		List<Service> services = detector.detect(tempDir);
 
 		assertThat(services).hasSize(1);
-		assertThat(services.getFirst())
+		assertThat(services.get(0))
 			.satisfies(mysql -> {
 				assertThat(mysql.getName()).isEqualTo("mysql");
 				assertThat(mysql.getVersion()).isEqualTo("8.0");

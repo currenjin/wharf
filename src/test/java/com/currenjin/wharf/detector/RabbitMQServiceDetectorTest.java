@@ -23,7 +23,7 @@ class RabbitMQServiceDetectorTest {
 		List<Service> services = detector.detect(tempDir);
 
 		assertThat(services).hasSize(1);
-		assertThat(services.getFirst())
+		assertThat(services.get(0))
 			.satisfies(rabbitmq -> {
 				assertThat(rabbitmq.getName()).isEqualTo("rabbitmq");
 				assertThat(rabbitmq.getVersion()).isEqualTo("3.12");
