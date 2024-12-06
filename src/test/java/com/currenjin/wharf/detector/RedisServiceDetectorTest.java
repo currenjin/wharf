@@ -24,7 +24,7 @@ class RedisServiceDetectorTest {
 		List<Service> services = detector.detect(tempDir);
 
 		assertThat(services).hasSize(1);
-		assertThat(services.getFirst())
+		assertThat(services.get(0))
 			.satisfies(redis -> {
 				assertThat(redis.getName()).isEqualTo("redis");
 				assertThat(redis.getVersion()).isEqualTo("7.0");
