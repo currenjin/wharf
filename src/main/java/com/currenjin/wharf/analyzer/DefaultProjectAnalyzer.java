@@ -17,12 +17,15 @@ public class DefaultProjectAnalyzer implements ProjectAnalyzer {
 
     @Override
     public Project analyze(Path path) {
-        Framework framework = detectors.stream()
+        Framework framework = detectFramework(path);
+        return new Project(framework, new ArrayList<>());
+    }
+
+    private Framework detectFramework(Path path) {
+        return detectors.stream()
             .map(detector -> detector.detect(path))
             .filter(Framework::isSupported)
             .findFirst()
             .orElse(Framework.UNKNOWN);
-
-        return new Project(framework, new ArrayList<>());
     }
 }
