@@ -19,7 +19,7 @@ public class DefaultProjectAnalyzer implements ProjectAnalyzer {
     public Project analyze(Path path) {
         Framework framework = detectors.stream()
             .map(detector -> detector.detect(path))
-            .filter(detected -> detected != Framework.UNKNOWN)
+            .filter(Framework::isSupported)
             .findFirst()
             .orElse(Framework.UNKNOWN);
 
