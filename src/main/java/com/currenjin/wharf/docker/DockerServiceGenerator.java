@@ -1,6 +1,8 @@
 package com.currenjin.wharf.docker;
 
+import com.currenjin.wharf.domain.Framework;
 import com.currenjin.wharf.domain.Service;
+import com.currenjin.wharf.domain.UnsupportedFrameworkException;
 import com.currenjin.wharf.domain.UnsupportedServiceException;
 
 public class DockerServiceGenerator {
@@ -13,6 +15,30 @@ public class DockerServiceGenerator {
             case "rabbitmq" -> generateRabbitMQService(service.version());
             default -> throw new UnsupportedServiceException(service.name());
         };
+    }
+
+    public DockerService generate(Framework framework) {
+        return switch (framework) {
+            case SPRING_BOOT -> generateSpringBootService();
+            case NODE_JS -> generateNodeJsService();
+            default -> throw new UnsupportedFrameworkException(framework);
+        };
+    }
+
+    private DockerService generateSpringBootService() {
+        DockerService springBoot = new DockerService("openjdk:17-jdk-slim");
+        springBoot.addPort("8080:8080");
+        springBoot.addEnvironment("SPRING_PROFILES_ACTIVE=dev");
+        return springBoot;
+    }
+
+    private DockerService generateNodeJsService() {
+        DockerService nodeJs = new DockerService("node:18-alpine");
+        nodeJs.addPort("3000:3000");
+        nodeJs.addEnvironment("NODE_ENV=development");
+        nodeJs.addVolume("./:/app");
+        nodeJs.addVolume("/app/node_modules");
+        return nodeJs;
     }
 
     private DockerService generateMySQLService(String version) {
