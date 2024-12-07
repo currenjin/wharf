@@ -1,9 +1,6 @@
 package com.currenjin.wharf.docker;
 
-import com.currenjin.wharf.domain.CacheService;
-import com.currenjin.wharf.domain.DatabaseService;
-import com.currenjin.wharf.domain.MessageQueueService;
-import com.currenjin.wharf.domain.UnsupportedServiceException;
+import com.currenjin.wharf.domain.*;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +9,26 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class DockerServiceGeneratorTest {
 
     private final DockerServiceGenerator generator = new DockerServiceGenerator();
+
+    @Test
+    void generateSpringBootService() {
+        DockerService service = generator.generate(Framework.SPRING_BOOT);
+        assertThat(service.getImage()).isEqualTo("openjdk:17-jdk-slim");
+        assertThat(service.getEnvironment()).contains("SPRING_PROFILES_ACTIVE=dev");
+        assertThat(service.getPorts()).contains("8080:8080");
+    }
+
+    @Test
+    void generateNodeJsService() {
+        DockerService service = generator.generate(Framework.NODE_JS);
+
+        assertThat(service.getImage()).isEqualTo("node:18-alpine");
+        assertThat(service.getEnvironment()).contains("NODE_ENV=development");
+        assertThat(service.getVolumes())
+            .contains("./:/app")
+            .contains("/app/node_modules");
+        assertThat(service.getPorts()).contains("3000:3000");
+    }
 
     @Test
     void generateMySQLService() {
