@@ -11,4 +11,8 @@ public record Project(
     public List<Service> requiredServices() {
         return Collections.unmodifiableList(requiredServices);
     }
+
+    public boolean isSupportedFramework() {
+        return this.framework.isSupported();
+    }
 }
