@@ -3,6 +3,8 @@ package com.currenjin.wharf.docker;
 import com.currenjin.wharf.domain.Project;
 
 public class DockerComposeGenerator {
+    private static final String FRAMEWORK_SERVICE_NAME = "app";
+
     private final DockerServiceGenerator serviceGenerator;
 
     public DockerComposeGenerator() {
@@ -13,7 +15,7 @@ public class DockerComposeGenerator {
         DockerCompose compose = new DockerCompose();
 
         DockerService frameworkService = serviceGenerator.generate(project.framework());
-        compose.addService("app", frameworkService);
+        compose.addService(FRAMEWORK_SERVICE_NAME, frameworkService);
 
         project.requiredServices().forEach(service -> {
             DockerService dockerService = serviceGenerator.generate(service);
