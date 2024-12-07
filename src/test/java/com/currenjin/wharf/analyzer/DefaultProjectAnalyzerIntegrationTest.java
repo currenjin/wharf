@@ -31,7 +31,7 @@ class DefaultProjectAnalyzerIntegrationTest {
 
         Project project = analyzer.analyze(projectPath);
 
-        assertThat(project.getFramework()).isEqualTo(Framework.SPRING_BOOT);
+        assertThat(project.framework()).isEqualTo(Framework.SPRING_BOOT);
     }
 
     private final ProjectAnalyzer analyzer = new DefaultProjectAnalyzer(
@@ -42,13 +42,13 @@ class DefaultProjectAnalyzerIntegrationTest {
     void detectSpringBootFromGradle() {
         Project project = analyzer.analyze(Path.of("src/test/resources/spring-project"));
 
-        assertThat(project.getFramework()).isEqualTo(Framework.SPRING_BOOT);
+        assertThat(project.framework()).isEqualTo(Framework.SPRING_BOOT);
     }
 
     @Test
     void detectNodeJs() {
         Project project = analyzer.analyze(Path.of("src/test/resources/node-project"));
 
-        assertThat(project.getFramework()).isEqualTo(Framework.NODE_JS);
+        assertThat(project.framework()).isEqualTo(Framework.NODE_JS);
     }
 }

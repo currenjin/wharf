@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class PostgreSQLServiceDetector implements ServiceDetector {
-
     private static final String BUILD_GRADLE = "build.gradle";
     private static final String POSTGRESQL_DEPENDENCY = "org.postgresql:postgresql";
 

@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class RedisServiceDetector implements ServiceDetector {
-
     private static final String BUILD_GRADLE = "build.gradle";
     private static final String REDIS_DEPENDENCY = "spring-boot-starter-data-redis";
 

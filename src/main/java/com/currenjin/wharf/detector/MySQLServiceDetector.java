@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class MySQLServiceDetector implements ServiceDetector {
-
     private static final String BUILD_GRADLE = "build.gradle";
     private static final String MYSQL_DEPENDENCY = "mysql:mysql-connector-java";
 

@@ -23,8 +23,8 @@ class PostgreSQLServiceDetectorTest {
         assertThat(services).hasSize(1);
         assertThat(services.get(0))
             .satisfies(postgresql -> {
-                assertThat(postgresql.getName()).isEqualTo("postgresql");
-                assertThat(postgresql.getVersion()).isEqualTo("15.0");
+                assertThat(postgresql.name()).isEqualTo("postgresql");
+                assertThat(postgresql.version()).isEqualTo("15.0");
                 assertThat(postgresql.getType()).isEqualTo(ServiceType.DATABASE);
             });
     }

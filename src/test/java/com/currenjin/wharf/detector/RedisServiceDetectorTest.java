@@ -25,8 +25,8 @@ class RedisServiceDetectorTest {
         assertThat(services).hasSize(1);
         assertThat(services.get(0))
             .satisfies(redis -> {
-                assertThat(redis.getName()).isEqualTo("redis");
-                assertThat(redis.getVersion()).isEqualTo("7.0");
+                assertThat(redis.name()).isEqualTo("redis");
+                assertThat(redis.version()).isEqualTo("7.0");
                 assertThat(redis.getType()).isEqualTo(ServiceType.CACHE);
             });
     }
