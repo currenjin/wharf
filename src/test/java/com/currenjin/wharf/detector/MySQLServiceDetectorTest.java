@@ -23,8 +23,8 @@ class MySQLServiceDetectorTest {
         assertThat(services).hasSize(1);
         assertThat(services.get(0))
             .satisfies(mysql -> {
-                assertThat(mysql.getName()).isEqualTo("mysql");
-                assertThat(mysql.getVersion()).isEqualTo("8.0");
+                assertThat(mysql.name()).isEqualTo("mysql");
+                assertThat(mysql.version()).isEqualTo("8.0");
                 assertThat(mysql.getType()).isEqualTo(ServiceType.DATABASE);
             });
     }

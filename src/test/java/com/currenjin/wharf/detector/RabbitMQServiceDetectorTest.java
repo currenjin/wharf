@@ -24,8 +24,8 @@ class RabbitMQServiceDetectorTest {
         assertThat(services).hasSize(1);
         assertThat(services.get(0))
             .satisfies(rabbitmq -> {
-                assertThat(rabbitmq.getName()).isEqualTo("rabbitmq");
-                assertThat(rabbitmq.getVersion()).isEqualTo("3.12");
+                assertThat(rabbitmq.name()).isEqualTo("rabbitmq");
+                assertThat(rabbitmq.version()).isEqualTo("3.12");
                 assertThat(rabbitmq.getType()).isEqualTo(ServiceType.MESSAGE_QUEUE);
             });
     }
