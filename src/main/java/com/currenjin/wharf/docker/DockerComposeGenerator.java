@@ -14,8 +14,10 @@ public class DockerComposeGenerator {
     public DockerCompose generate(Project project) {
         DockerCompose compose = new DockerCompose();
 
-        DockerService frameworkService = serviceGenerator.generate(project.framework());
-        compose.addService(FRAMEWORK_SERVICE_NAME, frameworkService);
+        if (project.isSupportedFramework()) {
+            DockerService frameworkService = serviceGenerator.generate(project.framework());
+            compose.addService(FRAMEWORK_SERVICE_NAME, frameworkService);
+        }
 
         project.requiredServices().forEach(service -> {
             DockerService dockerService = serviceGenerator.generate(service);
