@@ -1,5 +1,5 @@
 # Wharf
-🚢 A docker environment generator that just works.
+🚢 Just ONE command to generate Docker configurations
 
 ## Overview
 Wharf automatically analyzes your project and generates Docker configuration files. No manual setup, no complex configurations - just run one command and get your Docker environment ready.
