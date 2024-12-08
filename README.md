@@ -1,5 +1,5 @@
 # Wharf
-🚢 Just ONE command to generate Docker configurations
+🚢 Just ONE command in your project to get Docker files
 
 ## Overview
 Wharf automatically analyzes your project and generates Docker configuration files. No manual setup, no complex configurations - just run one command and get your Docker environment ready.
