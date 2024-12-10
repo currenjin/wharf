@@ -13,7 +13,7 @@ DOWNLOAD_URL="https://github.com/currenjin/wharf/releases/download/${LATEST_VERS
 INSTALL_DIR="/usr/local/bin"
 
 echo "⚙️ Installing wharf..."
-echo "📥 Downloading latest version..."
+echo "📥 Downloading latest version(${LATEST_VERSION})..."
 
 if [[ $EUID -ne 0 ]]; then
     echo "🔒 This script needs sudo privileges to install to $INSTALL_DIR"
