@@ -27,6 +27,7 @@ public class DockerServiceGenerator {
 
     private DockerService generateSpringBootService() {
         DockerService springBoot = new DockerService("openjdk:17-jdk-slim");
+        springBoot.setBuild(".");
         springBoot.addPort("8080:8080");
         springBoot.addEnvironment("SPRING_PROFILES_ACTIVE=dev");
         return springBoot;
@@ -34,6 +35,7 @@ public class DockerServiceGenerator {
 
     private DockerService generateNodeJsService() {
         DockerService nodeJs = new DockerService("node:18-alpine");
+        nodeJs.setBuild(".");
         nodeJs.addPort("3000:3000");
         nodeJs.addEnvironment("NODE_ENV=development");
         nodeJs.addVolume("./:/app");

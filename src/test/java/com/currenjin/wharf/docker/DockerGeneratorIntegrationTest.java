@@ -22,8 +22,7 @@ public class DockerGeneratorIntegrationTest {
         String composeYaml = yamlGenerator.generate(compose);
         Dockerfile dockerfile = dockerfileGenerator.generate(project);
 
-        assertThat(composeYaml).contains("openjdk:17-jdk-slim")
-            .contains("8080:8080")
+        assertThat(composeYaml).contains("8080:8080")
             .contains("SPRING_PROFILES_ACTIVE=dev");
 
         assertThat(dockerfile.getContent()).contains("FROM openjdk:17-jdk-slim")
