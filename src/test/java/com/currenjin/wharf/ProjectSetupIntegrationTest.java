@@ -45,7 +45,7 @@ public class ProjectSetupIntegrationTest {
         String composeContent = Files.readString(dockerComposePath);
         assertThat(composeContent)
             .contains("version: '3.8'")
-            .contains("openjdk:17-jdk-slim")
+            .contains("build: .")
             .contains("8080:8080")
             .contains("SPRING_PROFILES_ACTIVE=dev");
 
