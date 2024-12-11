@@ -18,10 +18,9 @@ class PostgreSQLServiceDetectorTest {
         createGradleWithPostgreSQLDependency(tempDir);
         ServiceDetector detector = new PostgreSQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).hasSize(1);
-        assertThat(services.get(0))
+        assertThat(service)
             .satisfies(postgresql -> {
                 assertThat(postgresql.name()).isEqualTo("postgresql");
                 assertThat(postgresql.version()).isEqualTo("15.0");
@@ -35,18 +34,18 @@ class PostgreSQLServiceDetectorTest {
         Files.writeString(tempDir.resolve("build.gradle"), "");
         ServiceDetector detector = new PostgreSQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
     void returnEmptyListWhenNoBuildGradle(@TempDir Path tempDir) {
         ServiceDetector detector = new PostgreSQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
@@ -56,9 +55,9 @@ class PostgreSQLServiceDetectorTest {
         Files.setPosixFilePermissions(buildGradlePath, Collections.emptySet());
         ServiceDetector detector = new PostgreSQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     private void createGradleWithPostgreSQLDependency(Path directory) throws Exception {

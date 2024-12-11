@@ -8,7 +8,6 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,10 +18,9 @@ class RabbitMQServiceDetectorTest {
         createGradleWithRabbitMQDependency(tempDir);
         ServiceDetector detector = new RabbitMQServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).hasSize(1);
-        assertThat(services.get(0))
+        assertThat(service)
             .satisfies(rabbitmq -> {
                 assertThat(rabbitmq.name()).isEqualTo("rabbitmq");
                 assertThat(rabbitmq.version()).isEqualTo("3.12");
@@ -34,9 +32,9 @@ class RabbitMQServiceDetectorTest {
     void returnEmptyListWhenNoBuildGradle(@TempDir Path tempDir) {
         ServiceDetector detector = new RabbitMQServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service services = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(services).isNull();
     }
 
     @Test
@@ -44,9 +42,9 @@ class RabbitMQServiceDetectorTest {
         Files.writeString(tempDir.resolve("build.gradle"), "");
         ServiceDetector detector = new RabbitMQServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service services = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(services).isNull();
     }
 
     @Test
@@ -56,9 +54,9 @@ class RabbitMQServiceDetectorTest {
         Files.setPosixFilePermissions(buildGradlePath, Collections.emptySet());
         ServiceDetector detector = new RabbitMQServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service services = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(services).isNull();
     }
 
     private void createGradleWithRabbitMQDependency(Path directory) throws Exception {

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,10 +19,9 @@ class RedisServiceDetectorTest {
     void detectRedisFromGradle(@TempDir Path tempDir) throws Exception {
         createGradleWithRedisDependency(tempDir);
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).hasSize(1);
-        assertThat(services.get(0))
+        assertThat(service)
             .satisfies(redis -> {
                 assertThat(redis.name()).isEqualTo("redis");
                 assertThat(redis.version()).isEqualTo("7.0");
@@ -33,18 +31,18 @@ class RedisServiceDetectorTest {
 
     @Test
     void returnEmptyListWhenNoBuildGradle(@TempDir Path tempDir) {
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
     void returnEmptyListWhenBuildGradleIsEmpty(@TempDir Path tempDir) throws Exception {
         Files.writeString(tempDir.resolve("build.gradle"), "");
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
@@ -53,9 +51,9 @@ class RedisServiceDetectorTest {
         Files.writeString(buildGradlePath, "content");
         Files.setPosixFilePermissions(buildGradlePath, Collections.emptySet());
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     private void createGradleWithRedisDependency(Path directory) throws Exception {

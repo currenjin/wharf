@@ -8,7 +8,6 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,10 +17,9 @@ class MySQLServiceDetectorTest {
         createGradleWithMySQLDependency(tempDir);
         ServiceDetector detector = new MySQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).hasSize(1);
-        assertThat(services.get(0))
+        assertThat(service)
             .satisfies(mysql -> {
                 assertThat(mysql.name()).isEqualTo("mysql");
                 assertThat(mysql.version()).isEqualTo("8.0");
@@ -34,18 +32,18 @@ class MySQLServiceDetectorTest {
         createGradleWithoutMySQLDependency(tempDir);
         ServiceDetector detector = new MySQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
     void returnEmptyListWhenNoBuildGradle(@TempDir Path tempDir) {
         ServiceDetector detector = new MySQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
@@ -53,9 +51,9 @@ class MySQLServiceDetectorTest {
         Files.writeString(tempDir.resolve("build.gradle"), "");
         ServiceDetector detector = new MySQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     @Test
@@ -65,9 +63,9 @@ class MySQLServiceDetectorTest {
         Files.setPosixFilePermissions(buildGradlePath, Collections.emptySet());
         ServiceDetector detector = new MySQLServiceDetector();
 
-        List<Service> services = detector.detect(tempDir);
+        Service service = detector.detect(tempDir);
 
-        assertThat(services).isEmpty();
+        assertThat(service).isNull();
     }
 
     private void createGradleWithMySQLDependency(Path directory) throws Exception {
