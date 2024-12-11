@@ -1,53 +1,83 @@
 package com.currenjin.wharf.analyzer;
 
-import com.currenjin.wharf.detector.FrameworkDetector;
-import com.currenjin.wharf.detector.NodeFrameworkDetector;
-import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
-import com.currenjin.wharf.domain.Framework;
-import com.currenjin.wharf.domain.Project;
+import com.currenjin.wharf.detector.*;
+import com.currenjin.wharf.domain.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.nio.file.Path;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class DefaultProjectAnalyzerIntegrationTest {
 
-    @Mock
-    private FrameworkDetector frameworkDetector;
+    private final List<FrameworkDetector> frameworkDetectorList = List.of(
+        new SpringBootFrameworkDetector(),
+        new NodeFrameworkDetector());
+
+    private final List<ServiceDetector> serviceDetectorList = List.of(
+        new MySQLServiceDetector(),
+        new PostgreSQLServiceDetector(),
+        new RabbitMQServiceDetector(),
+        new RedisServiceDetector());
+
+    private DefaultProjectAnalyzer sut;
+
+    @BeforeEach
+    void setUp() {
+        sut = new DefaultProjectAnalyzer(frameworkDetectorList, serviceDetectorList);
+    }
 
     @Test
-    void analyze() {
-        given(frameworkDetector.detect(any(Path.class))).willReturn(Framework.SPRING_BOOT);
-        ProjectAnalyzer analyzer = new DefaultProjectAnalyzer(List.of(frameworkDetector));
-        Path projectPath = Path.of("sample/spring-project");
-
-        Project project = analyzer.analyze(projectPath);
+    void analyzeSpringBootFromGradle() {
+        Project project = sut.analyze(Path.of("src/test/resources/spring-project"));
 
         assertThat(project.framework()).isEqualTo(Framework.SPRING_BOOT);
     }
 
-    private final ProjectAnalyzer analyzer = new DefaultProjectAnalyzer(
-        List.of(new SpringBootFrameworkDetector(), new NodeFrameworkDetector())
-    );
-
     @Test
-    void detectSpringBootFromGradle() {
-        Project project = analyzer.analyze(Path.of("src/test/resources/spring-project"));
+    void analyzeMysqlFromGradle() {
+        Project project = sut.analyze(Path.of("src/test/resources/spring-project/mysql"));
 
-        assertThat(project.framework()).isEqualTo(Framework.SPRING_BOOT);
+        Service service = project.requiredServices().get(0);
+        assertThat(service).isInstanceOf(DatabaseService.class);
+        assertThat(service.name()).contains("mysql");
     }
 
     @Test
-    void detectNodeJs() {
-        Project project = analyzer.analyze(Path.of("src/test/resources/node-project"));
+    void analyzePostgresqlFromGradle() {
+        Project project = sut.analyze(Path.of("src/test/resources/spring-project/postgresql"));
+
+        Service service = project.requiredServices().get(0);
+        assertThat(service).isInstanceOf(DatabaseService.class);
+        assertThat(service.name()).contains("postgresql");
+    }
+
+    @Test
+    void analyzeRabbitMqFromGradle() {
+        Project project = sut.analyze(Path.of("src/test/resources/spring-project/rabbitmq"));
+
+        Service service = project.requiredServices().get(0);
+        assertThat(service).isInstanceOf(MessageQueueService.class);
+        assertThat(service.name()).contains("rabbitmq");
+    }
+
+    @Test
+    void analyzeRedisFromGradle() {
+        Project project = sut.analyze(Path.of("src/test/resources/spring-project/redis"));
+
+        Service service = project.requiredServices().get(0);
+        assertThat(service).isInstanceOf(CacheService.class);
+        assertThat(service.name()).contains("redis");
+    }
+
+    @Test
+    void analyzeNodeJs() {
+        Project project = sut.analyze(Path.of("src/test/resources/node-project"));
 
         assertThat(project.framework()).isEqualTo(Framework.NODE_JS);
     }
