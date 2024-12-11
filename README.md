@@ -1,6 +1,7 @@
 # Wharf
 ![LOGO](https://github.com/user-attachments/assets/41b4384e-e0c8-4dc8-9062-b1b908d4b405)
 
+## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
 - [Quick Start](#quick-start)
