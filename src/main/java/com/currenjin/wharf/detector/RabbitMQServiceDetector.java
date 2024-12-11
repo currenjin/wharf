@@ -9,7 +9,7 @@ import java.nio.file.Path;
 
 public class RabbitMQServiceDetector implements ServiceDetector {
     private static final String BUILD_GRADLE = "build.gradle";
-    private static final String RABBITMQ_DEPENDENCY = "spring-boot-starter-amqp";
+    private static final String RABBITMQ_DEPENDENCY = "amqp";
 
     @Override
     public Service detect(Path path) {

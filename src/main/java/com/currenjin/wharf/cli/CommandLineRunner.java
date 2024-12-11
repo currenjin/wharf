@@ -2,8 +2,7 @@ package com.currenjin.wharf.cli;
 
 import com.currenjin.wharf.analyzer.DefaultProjectAnalyzer;
 import com.currenjin.wharf.analyzer.ProjectAnalyzer;
-import com.currenjin.wharf.detector.NodeFrameworkDetector;
-import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
+import com.currenjin.wharf.detector.*;
 import com.currenjin.wharf.docker.DockerComposeGenerator;
 import com.currenjin.wharf.docker.DockerConfigWriter;
 import com.currenjin.wharf.docker.DockerfileGenerator;
@@ -18,11 +17,17 @@ public class CommandLineRunner {
     private final DockerConfigWriter configWriter;
 
     public CommandLineRunner() {
-        this.analyzer = new DefaultProjectAnalyzer(
-            List.of(
-                new SpringBootFrameworkDetector(),
-                new NodeFrameworkDetector())
-        );
+        List<FrameworkDetector> frameworkDetectorList = List.of(
+            new SpringBootFrameworkDetector(),
+            new NodeFrameworkDetector());
+
+        List<ServiceDetector> serviceDetectorList = List.of(
+            new MySQLServiceDetector(),
+            new PostgreSQLServiceDetector(),
+            new RabbitMQServiceDetector(),
+            new RedisServiceDetector());
+        
+        this.analyzer = new DefaultProjectAnalyzer(frameworkDetectorList, serviceDetectorList);
         this.composeGenerator = new DockerComposeGenerator();
         this.dockerfileGenerator = new DockerfileGenerator();
         this.configWriter = new DockerConfigWriter();

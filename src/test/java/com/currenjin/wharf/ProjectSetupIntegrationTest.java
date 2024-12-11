@@ -1,8 +1,7 @@
 package com.currenjin.wharf;
 
 import com.currenjin.wharf.analyzer.DefaultProjectAnalyzer;
-import com.currenjin.wharf.detector.NodeFrameworkDetector;
-import com.currenjin.wharf.detector.SpringBootFrameworkDetector;
+import com.currenjin.wharf.detector.*;
 import com.currenjin.wharf.docker.DockerComposeGenerator;
 import com.currenjin.wharf.docker.DockerConfigWriter;
 import com.currenjin.wharf.docker.DockerfileGenerator;
@@ -16,6 +15,16 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProjectSetupIntegrationTest {
+    List<FrameworkDetector> frameworkDetectorList = List.of(
+        new SpringBootFrameworkDetector(),
+        new NodeFrameworkDetector());
+
+    List<ServiceDetector> serviceDetectorList = List.of(
+        new MySQLServiceDetector(),
+        new PostgreSQLServiceDetector(),
+        new RabbitMQServiceDetector(),
+        new RedisServiceDetector());
+
     @TempDir
     Path tempDir;
 
@@ -24,8 +33,9 @@ public class ProjectSetupIntegrationTest {
         createSpringBootProject(tempDir);
 
         DefaultProjectAnalyzer analyzer = new DefaultProjectAnalyzer(
-            List.of(new SpringBootFrameworkDetector(), new NodeFrameworkDetector())
+            frameworkDetectorList, serviceDetectorList
         );
+
         DockerComposeGenerator composeGenerator = new DockerComposeGenerator();
         DockerfileGenerator dockerfileGenerator = new DockerfileGenerator();
         DockerConfigWriter configWriter = new DockerConfigWriter();
