@@ -1,6 +1,12 @@
 # Wharf
 ![LOGO](https://github.com/user-attachments/assets/41b4384e-e0c8-4dc8-9062-b1b908d4b405)
 
+- [Overview](#overview)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Supported Project Types](#supported-project-types)
+- [Generated Files](#generated-files)
+
 ## Overview
 Wharf automatically analyzes your project and generates Docker configuration files. No manual setup, no complex configurations - just run one command and get your Docker environment ready.
 
@@ -94,8 +100,6 @@ RUN npm install
 COPY . .
 CMD ["npm", "start"]
 ```
-
-## Contributing
 We welcome contributions! Please feel free to submit a Pull Request.
 
 ## License
