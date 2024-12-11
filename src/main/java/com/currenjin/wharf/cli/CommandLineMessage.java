@@ -4,4 +4,8 @@ public class CommandLineMessage {
 	public static final String SUCCEEDED_GENERATE_TO_DOCKER_CONFIGURATION = "Docker configuration generated successfully";
 	public static final String FAILED_GENERATE_DOCKER_CONFIGURATION = "Failed to generate Docker configuration: ";
 	public static final String INVALID_COMMAND_LINE = "Invalid command: ";
+    public static final String USAGE_INIT_DOCKER_CONFIGURATION = """
+        Usage:
+        wharf init [path]     Initialize Docker configuration
+        """;
 }
