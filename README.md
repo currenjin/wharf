@@ -76,7 +76,7 @@ java -jar /path/to/wharf.jar init
 version: '3.8'
 services:
   app:
-    image: [appropriate-image]
+    build: .
     ports:
       - [appropriate-port]
     environment:
