@@ -1,6 +1,11 @@
 # Wharf
 ![LOGO](https://github.com/user-attachments/assets/41b4384e-e0c8-4dc8-9062-b1b908d4b405)
 
+![Author](https://img.shields.io/badge/author-currenjin-5c7cfa)
+![GitHub License](https://img.shields.io/github/license/currenjin/wharf)
+![GitHub Release](https://img.shields.io/github/v/release/currenjin/wharf)
+
+
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
