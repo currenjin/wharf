@@ -1,5 +1,5 @@
 # Wharf
-![LOGO](https://github.com/user-attachments/assets/41b4384e-e0c8-4dc8-9062-b1b908d4b405)
+![🚢](https://github.com/user-attachments/assets/80b6e60d-9b8c-42c5-b195-8a9af46d1077)
 
 ![Author](https://img.shields.io/badge/author-currenjin-5c7cfa)
 ![GitHub License](https://img.shields.io/github/license/currenjin/wharf)
