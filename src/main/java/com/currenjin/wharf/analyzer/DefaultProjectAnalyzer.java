@@ -7,18 +7,12 @@ import com.currenjin.wharf.domain.Project;
 import com.currenjin.wharf.domain.Service;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class DefaultProjectAnalyzer implements ProjectAnalyzer {
     private final List<FrameworkDetector> frameworkDetectorList;
     private final List<ServiceDetector> serviceDetectorList;
-
-    public DefaultProjectAnalyzer(List<FrameworkDetector> frameworkDetectorList) {
-        this.frameworkDetectorList = frameworkDetectorList;
-        this.serviceDetectorList = new ArrayList<>();
-    }
 
     public DefaultProjectAnalyzer(
         List<FrameworkDetector> frameworkDetectorList,
