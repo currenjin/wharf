@@ -31,6 +31,13 @@ public class DockerServiceGeneratorTest {
     }
 
     @Test
+    void throwExceptionForUnsupportedFramework() {
+        assertThatThrownBy(() -> generator.generate(Framework.UNKNOWN))
+            .isInstanceOf(UnsupportedFrameworkException.class)
+            .hasMessageContaining(Framework.UNKNOWN.toString());
+    }
+
+    @Test
     void generateMySQLService() {
         DatabaseService mysql = new DatabaseService("mysql", "8.0");
 

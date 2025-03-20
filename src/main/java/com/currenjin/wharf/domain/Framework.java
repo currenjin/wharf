@@ -14,10 +14,6 @@ public enum Framework {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
-
     public boolean isSupported() {
         return this != UNKNOWN;
     }
