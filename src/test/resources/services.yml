@@ -1,0 +1,14 @@
+services:
+    - name: mysql
+      type: DATABASE
+      version: "8.0"
+      dependencies:
+          - group: mysql
+            artifact: mysql-connector-java
+
+    - name: postgresql
+      type: DATABASE
+      version: "15.0"
+      dependencies:
+          - group: org.postgresql
+            artifact: postgresql
